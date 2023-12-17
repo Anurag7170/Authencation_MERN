@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./login.css";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [user, setuser] = useState({
     email: "",
     password: "",
@@ -12,10 +14,14 @@ function Login() {
     setuser({ ...user, [name]: value });
   };
   const login = () => {
-    const { password, email} = user;
-    if (password && email ) {
-      const res = axios.post("http://localhost:8000/api/v1/login", user);
-      res.then(() => alert("registered successfully"));
+    const { password, email } = user;
+    if (password && email) {
+      const res = axios.post(
+        "https://mern-auth-gtp0.onrender.com/api/v1/login",
+        user
+      );
+      res.then(() => alert("Succesfully login"));
+      navigate("/homepage");
       alert("done");
     } else {
       alert("invalid enter the data correctly");
@@ -51,7 +57,7 @@ function Login() {
             </div>
           </form>
           <div className="signup">
-            Don't have an account? <a href="#">Sign up</a>
+            Don't have an account? <Link to="/">Sign Up</Link>
           </div>
         </div>
       </div>
@@ -60,4 +66,3 @@ function Login() {
 }
 
 export default Login;
-
